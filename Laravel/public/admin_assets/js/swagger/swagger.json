@@ -1,0 +1,216 @@
+{
+    "openapi" : "3.1.0",
+    "info" : {
+        "description": "API de BE-QUEEN",
+        "version" : "1.0.0",
+        "title" : "BE-QUEEN"
+    },
+    "servers" : [
+        {
+            "url": "http://127.0.0.1:8000"
+        },
+        {
+            "url": "https://demo.serveur"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Tout ce qui concerne les Users"
+        },
+        {
+            "name": "Products",
+            "description": "Tout ce qui concerne les Products"
+        },
+        {
+            "name": "Categories",
+            "description": "Tout ce qui concerne les Categories"
+        },
+        {
+            "name": "Orders",
+            "description": "Tout ce qui concerne les Orders"
+        },
+        {
+            "name": "Custom Products",
+            "description": "Tout ce qui concerne les Custom Products"
+        },
+        {
+            "name": "BackOffice",
+            "description": "Tout ce qui concerne le BackOffice"
+        }
+    ],
+    "paths": {
+        "/api/User/": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary" : "Obtenir la liste des Users",
+                "operationId": "usershow",
+                "responses": {
+                    "200": {
+                        "description": "Renvoie une collection d'utilisateurs",
+                        "content": {
+                            "applications/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArrayOfUsers"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "renvoie une erreur, aucun élément trouvé"
+                    }
+                }
+            }
+        },
+        "/api/User/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary" : "Obtenir un User",
+                "operationId": "userShowid",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identifiant de l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Renvoie un utilisateur",
+                        "content": {
+                            "applications/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "renvoie une erreur, aucun élément trouvé"
+                    }
+                }
+            }
+        },
+        "/api/User/post": {
+            "post": {
+                "tags": [
+                    "Users"   
+                ],
+                "summary": "Crée un User",
+                "description": "Crée un User avec toute les données nécessaires",
+                "operationId": "postUser",
+                "requestBody": {
+                    "description": "Contenue complet d'un user",
+                    "required": true,
+                    "content": {
+                        "applications/json": {
+                            "schema": {
+                                        "$ref":"#/components/schemas/Users"
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "201": {
+                                "description": "User crée",
+                                "content": {
+                                    "applications/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/Users"
+                                        }
+                                    }
+                                }
+                            },
+                            "404": {
+                                "description": "renvoie une erreur, aucun élément trouvé"
+                            }
+                        }
+                    }
+                }
+                
+    },
+    "components": {
+        "schemas": {
+            "Users" : {
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "integer"
+                    },
+                    "first_name":{
+                        "type": "string"
+                    },
+                    "last_name":{
+                        "type": "string"
+                    },
+                    "email":{
+                        "type": "string"
+                    },
+                    "civility":{
+                        "type": "string"
+                    },
+                    "adress":{
+                        "type": "string"
+                    },
+                    "city":{
+                        "type": "string"
+                    },
+                    "phone_number":{
+                        "type": "string"
+                    },
+                    "is_admin":{
+                        "type": "integer"
+                    },
+                    "created_at":{
+                        "type": "string"
+                    },
+                    "update_at":{
+                        "type": "string"
+                    }
+                }
+            }, 
+            "ArrayOfUsers": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Users"
+                },
+                "example": [
+                    {
+                        "id": 1,
+                        "first_name": "Raphael",
+                        "last_name": "Petrozzi",
+                        "email": "raphael.petrozzi@le-campus-numerique.fr",
+                        "civility": "monsieur",
+                        "adress": "29 route d'annecy",
+                        "city": "Annecy",
+                        "phone_number": "0474050662",
+                        "is_admin": 1,
+                        "created_at": "2024-07-25 08:39:51",
+                        "update_at": "2024-07-25 08:41:51"
+                    },
+                    {
+                        "id": 2,
+                        "first_name": "Tristan",
+                        "last_name": "Chadoeuf",
+                        "email": "tristan.chadoeuf@le-campus-numerique.fr",
+                        "civility": "monsieur",
+                        "adress": "69 route d'annecy",
+                        "city": "Annecy",
+                        "phone_number": "0475789563",
+                        "is_admin": "1",
+                        "created_at": "2024-08-25 08:39:51",
+                        "update_at": "2024-08-25 08:40:51"
+                    }
+                ]
+            }
+        }
+    }
+}
